@@ -53,7 +53,7 @@ get_os() {
     local os
     for os in osx linux bsd; do
         if is_$os; then
-            sh shell_install.sh $os
+            `pwd`/shell_install.sh $os
         fi
     done
 }

@@ -23,14 +23,12 @@ update: ## Fetch changes for this repo
 
 install: update deploy init ## Run make update, deploy, init
 	@exec $$SHELL
+	@source ~/.bash_profile
 
 clean: ## Remove the dot files and this repo
 	@echo 'Remove dot files in your home directory...'
 	@-$(foreach val, $(DOTFILES), rm -vrf $(HOME)/$(val);)
 	-rm -rf $(DOTPATH)
-
-test: ## command test
-	@echo $(DOPATH)
 
 help: ## Self-documented Makefile
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \

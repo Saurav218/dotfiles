@@ -13,7 +13,8 @@ linux() {
         echo "fish is already installed.\nSkipping fish install phase..."
     else
         echo "fish will be installed." && \
-        sudo wget https://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo > /etc/yum.repos.d/ && \
+        cd /etc/yum.repos.d/ && \
+        sudo wget https://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo && \
         sudo yum install fish  && \
         echo /usr/local/bin/fish | sudo tee -a /etc/shells
     fi
