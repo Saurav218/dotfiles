@@ -54,6 +54,10 @@ let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
+
+" polyglot configuration
+let g:polyglot_disabled = ['jsx']
+
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
 "" Vim-Session
