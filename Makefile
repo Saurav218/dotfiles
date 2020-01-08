@@ -1,7 +1,8 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*)
-EXCLUSIONS := .DS_Store .git .gitmodules
+EXCLUSIONS := .DS_Store .git .gitmodules .config
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
+FISHCONF   := .config
 
 .DEFAULT_GOAL := help
 
@@ -14,15 +15,17 @@ deploy: ## Create symlink to home directory
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@ln -sfnv $(FISHCONF) $(HOME)
 
 init: ## Setup environment settings
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init.sh
 
 update: ## Fetch changes for this repo
-	git pull origin master
+	@git pull origin master
 
 install: update deploy init ## Run make update, deploy, init
 	@source ~/.bash_profile
+	fisher add jethrokuan/fzf
 
 clean: ## Remove the dot files and this repo
 	@echo 'Remove dot files in your home directory...'
